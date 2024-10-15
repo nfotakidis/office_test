@@ -1,4 +1,9 @@
-﻿// Ensures the Office.js library is loaded.
+﻿/*
+ * Copyright (c) Eric Legault Consulting Inc.
+ * Licensed under the MIT license.
+ */
+
+// Ensures the Office.js library is loaded.
 Office.onReady();
 
 // Handles the SpamReporting event to process a reported message.
@@ -19,11 +24,17 @@ function onSpamReport(event) {
       const reportedOptions = spamReportingEvent.options;
       const additionalInfo = spamReportingEvent.freeText;
 
-      // Now, forward the email to a specific recipient
-      forwardSpamReport(asyncResult.value, additionalInfo);
+      // Run additional processing operations here.
 
-      // Signals that the spam-reporting event has completed processing.
-      spamReportingEvent.completed({
+      /**
+       * Signals that the spam-reporting event has completed processing.
+       * It then moves the reported message to the Junk Email folder of the mailbox,
+       * then shows a post-processing dialog to the user.
+       * If an error occurs while the message is being processed,
+       * the `onErrorDeleteItem` property determines whether the message will be deleted.
+       */
+      const event = asyncResult.asyncContext;
+      event.completed({
         onErrorDeleteItem: true,
         moveItemTo: Office.MailboxEnums.MoveSpamItemTo.JunkFolder,
         showPostProcessingDialog: {
@@ -33,25 +44,6 @@ function onSpamReport(event) {
       });
     }
   );
-}
-
-// Function to forward the spam report to a specific recipient
-function forwardSpamReport(file, additionalInfo) {
-  // You can forward the message to a predefined recipient here
-  Office.context.mailbox.item.forwardAsync({
-    // Define your recipient here
-    toRecipients: ["n.fotakidis@kenotom.com"],
-    // You can customize the subject of the forwarded message
-    subject: "Spam Report: Reported Email",
-    // Add any body text you want to include
-    body: `A spam report has been submitted.\n\nAdditional Information: ${additionalInfo}`,
-  }, function (asyncResult) {
-    if (asyncResult.status === Office.AsyncResultStatus.Failed) {
-      console.error("Failed to forward spam report: " + asyncResult.error.message);
-    } else {
-      console.log("Spam report successfully forwarded.");
-    }
-  });
 }
 
 /**
