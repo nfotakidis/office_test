@@ -121,4 +121,15 @@
           <bt:String id="OptionsTitle.Label" DefaultValue="Why are you reporting this email?"/>
           <bt:String id="FreeText.Label" DefaultValue="Provide additional information, if any:"/>
           <bt:String id="MoreInfo.Label" DefaultValue="Implement an integrated spam-reporting add-in"/>
-          <bt:String id="Option1.Label" DefaultValue="Received spam
+          <bt:String id="Option1.Label" DefaultValue="Received spam email."/>
+          <bt:String id="Option2.Label" DefaultValue="Received a phishing email."/>
+          <bt:String id="Option3.Label" DefaultValue="I'm not sure this is a legitimate email."/>
+        </bt:ShortStrings>
+        <bt:LongStrings>
+          <bt:String id="spamSuperTip.Text" DefaultValue="Report an unsolicited message."/>
+          <bt:String id="PreProcessingDialog.Text" DefaultValue="Thank you for reporting this message."/>
+        </bt:LongStrings>
+      </Resources>
+    </VersionOverrides>
+  </VersionOverrides>
+</OfficeApp>
